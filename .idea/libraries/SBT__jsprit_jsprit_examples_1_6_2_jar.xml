@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="SBT: jsprit:jsprit-examples:1.6.2:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/jsprit/jsprit-examples/jars/jsprit-examples-1.6.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/jsprit/jsprit-examples/srcs/jsprit-examples-1.6.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

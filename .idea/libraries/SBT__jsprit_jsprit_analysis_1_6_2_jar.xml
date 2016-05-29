@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="SBT: jsprit:jsprit-analysis:1.6.2:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/jsprit/jsprit-analysis/jars/jsprit-analysis-1.6.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/jsprit/jsprit-analysis/srcs/jsprit-analysis-1.6.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
