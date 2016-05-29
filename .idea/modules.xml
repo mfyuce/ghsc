@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ghsc.iml" filepath="$PROJECT_DIR$/.idea/modules/ghsc.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/scala-build.iml" filepath="$PROJECT_DIR$/.idea/modules/scala-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ghsc-build.iml" filepath="$PROJECT_DIR$/.idea/modules/ghsc-build.iml" />
     </modules>
   </component>
 </project>

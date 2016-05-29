@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="movielens-als">
-    <output-path>$PROJECT_DIR$/classes/artifacts/movielens_als_v8</output-path>
-    <root id="archive" name="movielens-als_v8.jar">
-      <element id="module-output" name="ghsc" />
-    </root>
-  </artifact>
-</component>

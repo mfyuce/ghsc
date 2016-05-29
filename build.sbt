@@ -2,7 +2,7 @@ import AssemblyKeys._
 
 assemblySettings
 
-name := "movielens-als"
+name := "ghsc"
 
 version := "0.1"
 
