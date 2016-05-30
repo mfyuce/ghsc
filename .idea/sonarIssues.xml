@@ -38,6 +38,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../../../HadoopSamples/ArrayInit.test">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../../../HadoopSamples/Scriptella/build.gradle">
           <value>
             <set />
@@ -54,6 +59,111 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../../../HadoopSamples/Scriptella/src/main/java/Main.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../HadoopSamples/SimpleSQLParse_ANTLR4_CmdLine/ArrayInit.g4">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../HadoopSamples/SimpleSQLParse_ANTLR4_CmdLine/ArrayInitBaseListener.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../HadoopSamples/SimpleSQLParse_ANTLR4_CmdLine/ArrayInitLexer.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../HadoopSamples/SimpleSQLParse_ANTLR4_CmdLine/ArrayInitListener.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../HadoopSamples/SimpleSQLParse_ANTLR4_CmdLine/ArrayInitParser.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../HadoopSamples/SimpleSQLParse_ANTLR4_CmdLine/Hello.g4">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../HadoopSamples/SimpleSQLParse_ANTLR4_CmdLine/Hello.test">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../HadoopSamples/SimpleSQLParse_ANTLR4_CmdLine/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../HadoopSamples/SimpleSQLParse_ANTLR4_CmdLine/src/main/java/HelloBaseListener.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../HadoopSamples/SimpleSQLParse_ANTLR4_CmdLine/src/main/java/HelloLexer.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../HadoopSamples/SimpleSQLParse_ANTLR4_CmdLine/src/main/java/HelloListener.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../HadoopSamples/SimpleSQLParse_ANTLR4_CmdLine/src/main/java/HelloParser.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../HadoopSamples/SimpleSQLParse_ANTLR4_CmdLine/src/main/java/TestGrammerHello.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../HadoopSamples/SimpleSQLParse_ANTLR4_CmdLine/src/main/java/com/organonanalytics/samples/simplesqlparse_antlr4_cmdline/TestGrammerHello.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../HadoopSamples/SimpleSQLParse_ANTLR4_CmdLine/src/main/java/com/organonanalytics/samples/simplesqlparse_antlr4_cmdline/array/ArrayInitListener.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../HadoopSamples/SimpleSQLParse_ANTLR4_CmdLine/src/main/java/com/organonanalytics/samples/simplesqlparse_antlr4_cmdline/array/ArrayInitParser.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../HadoopSamples/SimpleSQLParse_ANTLR4_CmdLine/src/main/java/com/organonanalytics/samples/simplesqlparse_antlr4_cmdline/array/ShortToUnicodeString.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../HadoopSamples/SimpleSQLParse_ANTLR4_CmdLine/src/main/java/com/organonanalytics/samples/simplesqlparse_antlr4_cmdline/array/TestGrammerArrayInit.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../HadoopSamples/SimpleSQLParse_ANTLR4_CmdLine/src/main/java/com/organonanalytics/samples/simplesqlparse_antlr4_cmdline/array/TestGrammerArrayInitFromCode.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../HadoopSamples/SimpleSQLParse_ANTLR4_CmdLine/src/main/java/com/organonanalytics/samples/simplesqlparse_antlr4_cmdline/array/Translate.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../HadoopSamples/SimpleSQLParse_ANTLR4_CmdLine/src/main/java/com/organonanalytics/samples/simplesqlparse_antlr4_cmdline/hello/HelloLexer.java">
           <value>
             <set />
           </value>
@@ -207,22 +317,7 @@
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/../../jsprit-1.6/jsprit-examples/input/C110_1_cl_0.TXT">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/../../jsprit-1.6/jsprit-examples/input/C110_1_cl_1.TXT">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/../../jsprit-1.6/jsprit-examples/input/C110_1_cl_3.TXT">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/../../jsprit-1.6/jsprit-examples/src/main/java/jsprit/examples/SolomonR101Example.java">
+        <entry key="$PROJECT_DIR$/bests">
           <value>
             <set />
           </value>
@@ -238,6 +333,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/model/model_export_1464022966386/0">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/main.java">
           <value>
             <set />
           </value>
@@ -272,6 +372,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/scala/com/ghsc/GHSCTest.scala">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/scala/com/ghsc/GHSCTimeWindowBasedExporter.scala">
           <value>
             <set />
@@ -298,6 +403,26 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/scala/com/ghsc/options.scala">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../jsprit-1.6/jsprit-examples/input/C110_1_cl_0.TXT">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../jsprit-1.6/jsprit-examples/input/C110_1_cl_1.TXT">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../jsprit-1.6/jsprit-examples/input/C110_1_cl_3.TXT">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../jsprit-1.6/jsprit-examples/src/main/java/jsprit/examples/SolomonR101Example.java">
           <value>
             <set />
           </value>

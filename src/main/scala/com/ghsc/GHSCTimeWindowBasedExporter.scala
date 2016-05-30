@@ -17,15 +17,13 @@ object GHSCTimeWindowBasedExporter  {
 
     for (file <- files) {
       val latestExportFolder = getLatestExportFolder(file,"location")
-      val latestModelFolder = getLatestModelFolder(file)
+      val latestModelFolder = getLatestModelFolder(file,file)
         .replaceAllLiterally("/location","/tw")
         .replaceAllLiterally("\\location","\\tw");
-      val twBasedClusteredModels = getListOfFolders(latestModelFolder)
-      for (locationBasedClusteredFile <- twBasedClusteredModels) {
-        export(latestExportFolder.getAbsolutePath,twTake,"tw")
-      }
-
-
+//      val twBasedClusteredModels = getListOfFolders(latestModelFolder)
+//      for (twBasedClusteredFile <- twBasedClusteredModels) {
+        export(latestExportFolder.getAbsolutePath ,file,twTake,"tw")
+//      }
     }
   }
   def currentTake(line: Array[Double]): Array[Double] = {

@@ -1,6 +1,8 @@
 package com.ghsc
 
-import java.io.File
+import java.io.{IOException, _}
+import java.nio.charset.Charset
+import java.nio.file.Files
 import java.util
 import java.util.{Collection, Date}
 
@@ -16,10 +18,10 @@ import jsprit.instance.reader.SolomonReader
 import jsprit.util.Examples
 
 import scala.collection.parallel.immutable.ParHashMap
-
-import com.ghsc.RouterUtil._;
-import com.ghsc.GHSCExporter._;
-
+import com.ghsc.RouterUtil._
+import com.ghsc.GHSCExporter._
+import org.apache.spark.mllib.linalg.Vectors;
+import scala.io
 /**
   * Created by myuce on 27.5.2016.
   */
@@ -38,24 +40,41 @@ object GHSCRouter {
     return new SelectBest().selectSolution(solutions)
     //SolutionPrinter.print(vrp, solution, SolutionPrinter.Print.VERBOSE)
   }
-  def main(args: Array[String]) {
-    run
-  }
-  def run() {
-    Examples.createOutputFolder
-    val files = RouterUtil.getListOfFiles(options.TXT_INSTANCE_FOLDER)
 
-    for(file<-files){
-      routeOne( file)
+  def main(args: Array[String]) {
+    run("tw")
+  }
+  def run(typeText: String) {
+    Examples.createOutputFolder
+    val files = getListOfFiles(options.TXT_INSTANCE_FOLDER)
+
+    for (file <- files) {
+      routeOne(file, typeText)
     }
   }
-  def routeOne(file: File)= {
-    val files = RouterUtil.getListOfFiles(getLatestExportFolder(file).getAbsolutePath)
+
+  def routeOne(file: File, typeText: String) = {
+    var latestExportFolder = getLatestExportFolder(file).getAbsolutePath
+
+
+    val files = if (typeText == "tw") {
+      latestExportFolder = latestExportFolder.replaceAllLiterally("/location", "/tw")
+        .replaceAllLiterally("\\location", "\\tw");
+      val folders = getListOfFolders(latestExportFolder)
+      val fs = new util.LinkedList[File]()
+      for (s <- folders) {
+        getListOfFiles(getLatestFolder(s.getAbsolutePath).getAbsolutePath).foreach(fs.add(_))
+      }
+      fs.toArray()
+    }
+    else {
+      getListOfFiles(latestExportFolder)
+    }
     var totalCost = 0.0
     var totalJob = 0.0
     var lstSols = new ParHashMap[VehicleRoutingProblemSolution, Boolean]
     files.par.foreach { f =>
-      val solution = route(f, null)
+      val solution = route(f.asInstanceOf[File], null)
       totalCost += solution.getCost
       totalJob += solution.getUnassignedJobs.size()
       lstSols +=(solution, true)
@@ -68,7 +87,7 @@ object GHSCRouter {
     val alls = lstSols.map(_._1).toSeq.toArray
     for (s <- alls) {
       val sol = s.asInstanceOf[VehicleRoutingProblemSolution]
-      RouterUtil.printSol(sol)
+      printSol(sol)
       uJobs.addAll(sol.getUnassignedJobs)
       for (r <- sol.getRoutes.toArray()) {
         val route = r.asInstanceOf[VehicleRoute]
@@ -79,22 +98,45 @@ object GHSCRouter {
     println("Initial Total Cost : " + totalCost)
     println("Initial Total Unassgned Jobs : " + totalJob)
 
-    val lastSol = new VehicleRoutingProblemSolution(routes,uJobs,totalCost)
-    var sF = new File(options.TXT_INSTANCE_FOLDER + "schedules/" + file.getName + "/" );
+    val lastSol = new VehicleRoutingProblemSolution(routes, uJobs, totalCost)
+    var sF = new File(options.TXT_INSTANCE_FOLDER + "schedules/" + file.getName + "/");
     sF.mkdirs()
-    sF = new File(sF.getAbsolutePath + "/" + file.getName+ "_" + totalCost + "km_" + totalJob + "uj" +  + (new Date()).getTime + ".sc");
+    sF = new File(sF.getAbsolutePath + "/" + file.getName + "_" + totalCost + "km_" + totalJob + "uj_" + options.scheduleName +(new Date()).getTime +  ".sc");
 
 
-    printSol(lastSol,sF)
+    printSol(lastSol, sF)
 
-    //    val solution=route (new File ("input/C110_1.TXT"), lastSol)
-    //
-    //    totalCost = solution.getCost
-    //    totalJob = solution.getUnassignedJobs.size()
-    //
-    //    printSol(solution )
-    //
-    //    println("Total Cost : " + totalCost)
-    //    println("Total Unassgned Jobs : " + totalJob)
+//    sF = new File(sF.getAbsolutePath + "/" + file.getName + "_" + totalCost + "km_" + totalJob + "uj" + +(new Date()).getTime + "_ropt.sc");
+//    val solution = route(file, lastSol)
+//
+//    totalCost = solution.getCost
+//    totalJob = solution.getUnassignedJobs.size()
+//
+//    printSol(solution)
+//
+//    println("Total Cost : " + totalCost)
+//    println("Total Unassgned Jobs : " + totalJob)
+  }
+
+  def exportBests() ={
+    val instances = new File(options.TXT_INSTANCE_FOLDER + "schedules/" );
+    val bestS =   getListOfFolders(instances.getAbsolutePath).map{
+      instanceFolder=>
+        val instance = getListOfFiles(instanceFolder.getAbsolutePath).map{
+           f1 =>
+
+             (f1.getName.replaceAllLiterally(instanceFolder.getName + "_","").split("[_]")(0).replaceAllLiterally ("km","").toDouble, f1,instanceFolder.getName)
+        }.minBy(_._1)
+        (instance._3, instance._1,io.Source.fromFile(instance._2.getAbsolutePath).getLines.size)
+    }
+        .sortBy(_._1)
+    println("Instance\tKM\tRoutes")
+    bestS.foreach{
+      t=>
+        print(t._1 + "\t")
+        print(t._3 + "\t")
+        print(t._2 + "\t")
+        println()
+    }
   }
 }

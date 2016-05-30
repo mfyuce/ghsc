@@ -71,12 +71,53 @@ object RouterUtil {
   def getModel(sc:SparkContext): KMeansModel ={
     KMeansModel.load(sc, options.TXT_MODEL_FILE)
   }
-  def getLatestModel(sc:SparkContext, file: File, typeText:String="location"): KMeansModel ={
-    KMeansModel.load(sc, getLatestModelFolder( file, typeText)  )
+  def getLatestModel(sc:SparkContext, baseFile: File,  clusterFile: File, typeText:String="location"): KMeansModel ={
+    KMeansModel.load(sc, getLatestModelFolder( baseFile,  clusterFile, typeText)  )
   }
-  def getLatestModelFolder( file: File, typeText:String="location"): String ={
-    val instanceName =file.getName.toLowerCase
-    val d = new File(options.TXT_INSTANCE_FOLDER + "models/" + instanceName )
+  def getLatestModelFolder(baseFile: File, clusterFile: File, typeText:String="location"): String ={
+   var bf = baseFile
+    if(bf==null){
+      bf = clusterFile
+    }
+    val instanceName =bf.getName.toLowerCase
+    var d = new File(options.TXT_INSTANCE_FOLDER + "models/" + instanceName )
+    var latest = {
+      if (d.exists && d.isDirectory) {
+        d.listFiles.filter(_.isDirectory)
+          //.filter(_.getName.toLowerCase.startsWith(instanceName))
+          //.filter(_.getName.length>instanceName.length)
+          .map {
+          f =>
+            //(f, f.getName.toLowerCase.replaceAllLiterally(instanceName,"").toDouble)
+            (f, f.getName.toDouble)
+        }.maxBy(_._2)
+      } else {
+        null
+      }
+    }
+    var latestToRet = latest._1.getAbsolutePath + "/" + typeText
+    if(typeText=="tw"){
+      d = new File(latestToRet + "/" + clusterFile.getName )
+      latest = {
+        if (d.exists && d.isDirectory) {
+          d.listFiles.filter(_.isDirectory)
+            //.filter(_.getName.toLowerCase.startsWith(instanceName))
+            //.filter(_.getName.length>instanceName.length)
+            .map {
+            f =>
+              //(f, f.getName.toLowerCase.replaceAllLiterally(instanceName,"").toDouble)
+              (f, f.getName.toDouble)
+          }.maxBy(_._2)
+        } else {
+          null
+        }
+      }
+      latestToRet = latest._1.getAbsolutePath + "/"
+    }
+    latestToRet
+  }
+  def getLatestFolder(fileLoc:String): File ={
+    val d = new File(fileLoc)
     val latest = {
       if (d.exists && d.isDirectory) {
         d.listFiles.filter(_.isDirectory)
@@ -91,7 +132,7 @@ object RouterUtil {
         null
       }
     }
-    latest._1.getAbsolutePath + "/" + typeText
+    latest._1
   }
   def getLatestExportFolder( file: File, typeText:String="location"): File ={
     val instanceName =file.getName.toLowerCase

@@ -6,8 +6,8 @@ package com.ghsc
 object GHSCManager{
   def main(args: Array[String]) {
     GHSCLocationBasedTrainer.run()
-    GHSCExporter.run()
+    GHSCExporter.run(options.TXT_INSTANCE_FOLDER,null)
     GHSCTimeWindowBasedTrainer.run()
-    GHSCRouter.run()
+    GHSCRouter.run("tw")
   }
 }

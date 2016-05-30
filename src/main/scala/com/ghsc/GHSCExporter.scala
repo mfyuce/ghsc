@@ -13,17 +13,17 @@ import org.apache.spark.mllib.linalg.Vectors
   * Created by myuce on 27.5.2016.
   */
 object GHSCExporter {
-  def export(basePath:String=options.TXT_INSTANCE_FOLDER,currentTake: (Array[Double]) => Array[Double], typeText:String="location") = {
+  def export(basePath:String=options.TXT_INSTANCE_FOLDER,baseFile: File,  currentTake: (Array[Double]) => Array[Double], typeText:String="location") = {
     val files = RouterUtil.getListOfFiles(basePath)
 
     for(file<-files){
-      exportOne( file,currentTake,typeText)
+      exportOne( baseFile, file,currentTake,typeText)
     }
   }
-  def exportOne(file:File,currentTake: (Array[Double]) => Array[Double], typeText:String="location") ={
+  def exportOne(baseFile: File,  clusterFile: File,currentTake: (Array[Double]) => Array[Double], typeText:String="location") ={
     val sc = start("GHSCExporter")
-    val model = getLatestModel(sc,file,typeText)
-    val trainingBase = DataSource.getFileDataFromInstanceFile(sc, file.getAbsolutePath)
+    val model = getLatestModel(sc,baseFile,clusterFile, typeText)
+    val trainingBase = DataSource.getFileDataFromInstanceFile(sc, clusterFile.getAbsolutePath)
 
     val training = trainingBase
       .map {
@@ -50,23 +50,29 @@ object GHSCExporter {
       }
       .groupBy(t => t._1);
 
-    val fp = options.TXT_INSTANCE_FOLDER + "/exports/" + file.getName + "/" + (new Date()).getTime + "/" + typeText + "/";
-    val dir = new File(fp);
+    val toWrite = if(typeText=="location"){
+      new File(options.TXT_INSTANCE_FOLDER + "/exports/" + clusterFile.getName + "/" + (new Date()).getTime + "/" + typeText + "/")
+    }else{
+      val exportFolder = getLatestExportFolder(baseFile,"location").getAbsolutePath
 
-    dir.mkdirs();
+      new File(exportFolder
+        .replaceAllLiterally("/location","/tw")
+        .replaceAllLiterally("\\location","\\tw")
+        + "/" + clusterFile.getName + "/" + (new Date()).getTime + "/");
+    }
 
     val mappedTB = trainingBase.map{
       t=>
         (t(0),t)
     }.collect().filter(_._1!=0).toMap
 
-    val firstLines = Files.readAllLines(file.toPath,Charset.defaultCharset()).toArray.take(10).map{
+    val firstLines = Files.readAllLines(clusterFile.toPath,Charset.defaultCharset()).toArray.take(10).map{
       line=>
         line.asInstanceOf[java.lang.String].replaceAllLiterally("  ", " ").trim
     }.mkString("\n")
-
+    toWrite.mkdirs
     for (t <- groups) {
-      val pw = new PrintWriter(new File(fp + "/" + t._1))
+      val pw = new PrintWriter(new File(toWrite + "/" + t._1))
       pw.write(firstLines + "\n")
       for (u <- t._2.map(t => t._2).toSeq.toArray.filter(_!=0)) {
         pw.append( mappedTB(u).mkString(" ").replaceAllLiterally(".0","") +"")
@@ -78,10 +84,10 @@ object GHSCExporter {
   }
 
   def main(args: Array[String]) {
-    run()
+    run(options.TXT_INSTANCE_FOLDER,null)
   }
-  def run(basePath:String=options.TXT_INSTANCE_FOLDER, currentTake: (Array[Double]) => Array[Double]=GHSCLocationBasedTrainer.locationTake, typeTex:String="location") {
-    export(basePath,currentTake,typeTex)
+  def run(basePath:String=options.TXT_INSTANCE_FOLDER,baseFile:File, currentTake: (Array[Double]) => Array[Double]=GHSCLocationBasedTrainer.locationTake, typeTex:String="location") {
+    export(basePath,baseFile,currentTake,typeTex)
   }
 }
 

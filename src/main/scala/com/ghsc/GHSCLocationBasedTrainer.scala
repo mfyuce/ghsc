@@ -44,9 +44,9 @@ object GHSCLocationBasedTrainer  {
     // algorithm on the data gathered by the DataSource component
     val model = kMeansI.run(training)
     val toWrite = if(typeText=="location"){
-      new File(options.TXT_INSTANCE_FOLDER + "models/" +  file.getName + "/" + (new Date()).getTime + "/");
+      new File(options.TXT_INSTANCE_FOLDER + "models/" +  file.getName + "/" + (new Date()).getTime + "/location/" );
     }else{
-      val modelFolder = getLatestModelFolder(instanceFile,"location")
+      val modelFolder = getLatestModelFolder(instanceFile,instanceFile,"location")
 
       new File(modelFolder
         .replaceAllLiterally("/location","/tw")
