@@ -16,13 +16,10 @@ object GHSCTimeWindowBasedTrainer  {
     for (file <- files) {
       val locationBasedClusteredFiles = RouterUtil.getListOfFiles(getLatestExportFolder(file).getAbsolutePath)
       for (locationBasedClusteredFile <- locationBasedClusteredFiles) {
-          trainOne(locationBasedClusteredFile,file,twTake,"tw")
+          trainOne(locationBasedClusteredFile,file,currentTwTake,"tw")
       }
 
 
     }
-  }
-  def currentTake(line: Array[Double]): Array[Double] = {
-    twTake(line)
   }
 }

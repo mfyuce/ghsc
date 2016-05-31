@@ -22,11 +22,8 @@ object GHSCTimeWindowBasedExporter  {
         .replaceAllLiterally("\\location","\\tw");
 //      val twBasedClusteredModels = getListOfFolders(latestModelFolder)
 //      for (twBasedClusteredFile <- twBasedClusteredModels) {
-        export(latestExportFolder.getAbsolutePath ,file,twTake,"tw")
+        export(latestExportFolder.getAbsolutePath ,file,currentTwTake,"tw")
 //      }
     }
-  }
-  def currentTake(line: Array[Double]): Array[Double] = {
-    twTake(line)
   }
 }

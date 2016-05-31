@@ -26,13 +26,13 @@ import scala.io
   * Created by myuce on 27.5.2016.
   */
 object GHSCRouter {
-  def route(file: File, initialSol: VehicleRoutingProblemSolution): VehicleRoutingProblemSolution = {
+  def route(file: File, initialSol: VehicleRoutingProblemSolution,numberOFRuns:Int=options.numberOfRotuingRun): VehicleRoutingProblemSolution = {
     val vrpBuilder: VehicleRoutingProblem.Builder = VehicleRoutingProblem.Builder.newInstance
     new SolomonReader(vrpBuilder).read(file.getAbsolutePath)
     val vrp: VehicleRoutingProblem = vrpBuilder.build
     val vra: VehicleRoutingAlgorithm = VehicleRoutingAlgorithms.readAndCreateAlgorithm(vrp, "input/algorithmConfig_solomon.xml")
-    vra.setMaxIterations(options.numberOfRotuingRun)
-    vra.getAlgorithmListeners.addListener(new AlgorithmSearchProgressChartListener("output/sol_progress_" + file.getName + ".png"))
+    vra.setMaxIterations(numberOFRuns)
+    //vra.getAlgorithmListeners.addListener(new AlgorithmSearchProgressChartListener("output/sol_progress_" + file.getName + ".png"))
     if (initialSol != null) {
       vra.addInitialSolution(initialSol)
     }
@@ -87,7 +87,7 @@ object GHSCRouter {
     val alls = lstSols.map(_._1).toSeq.toArray
     for (s <- alls) {
       val sol = s.asInstanceOf[VehicleRoutingProblemSolution]
-      printSol(sol)
+      //printSol(sol)
       uJobs.addAll(sol.getUnassignedJobs)
       for (r <- sol.getRoutes.toArray()) {
         val route = r.asInstanceOf[VehicleRoute]
@@ -99,23 +99,23 @@ object GHSCRouter {
     println("Initial Total Unassgned Jobs : " + totalJob)
 
     val lastSol = new VehicleRoutingProblemSolution(routes, uJobs, totalCost)
-    var sF = new File(options.TXT_INSTANCE_FOLDER + "schedules/" + file.getName + "/");
-    sF.mkdirs()
-    sF = new File(sF.getAbsolutePath + "/" + file.getName + "_" + totalCost + "km_" + totalJob + "uj_" + options.scheduleName +(new Date()).getTime +  ".sc");
+    var basedir = new File(options.TXT_INSTANCE_FOLDER + "schedules/" + file.getName + "/");
+    basedir.mkdirs()
+    var sF = new File(basedir.getAbsolutePath + "/" + file.getName + "_" + totalCost + "km_" + totalJob + "uj_" + options.scheduleName +(new Date()).getTime +  ".sc");
 
 
     printSol(lastSol, sF)
 
-//    sF = new File(sF.getAbsolutePath + "/" + file.getName + "_" + totalCost + "km_" + totalJob + "uj" + +(new Date()).getTime + "_ropt.sc");
-//    val solution = route(file, lastSol)
-//
-//    totalCost = solution.getCost
-//    totalJob = solution.getUnassignedJobs.size()
-//
-//    printSol(solution)
-//
-//    println("Total Cost : " + totalCost)
-//    println("Total Unassgned Jobs : " + totalJob)
+    sF = new File(basedir.getAbsolutePath + "/" + file.getName + "_" + totalCost + "km_" + totalJob + "uj" + options.scheduleName +(new Date()).getTime + "_ropt.sc");
+    val solution = route(file, lastSol,options.numberOfResultingRotuingRun)
+
+    totalCost = solution.getCost
+    totalJob = solution.getUnassignedJobs.size()
+
+    //printSol(solution)
+    printSol(lastSol, sF)
+    println("Total Cost opt: " + totalCost)
+    println("Total Unassgned Jobs opt: " + totalJob)
   }
 
   def exportBests() ={

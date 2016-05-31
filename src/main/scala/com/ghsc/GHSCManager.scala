@@ -8,6 +8,7 @@ object GHSCManager{
     GHSCLocationBasedTrainer.run()
     GHSCExporter.run(options.TXT_INSTANCE_FOLDER,null)
     GHSCTimeWindowBasedTrainer.run()
+    GHSCTimeWindowBasedExporter.run()
     GHSCRouter.run("tw")
   }
 }
