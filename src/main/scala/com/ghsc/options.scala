@@ -6,9 +6,9 @@ package com.ghsc
 object options {
   val TXT_TRAIN_FILE: String = "data/c110_1.txt"
   val TXT_INSTANCE_FOLDER: String = "data/homberger_1000_customer_instances/"
-  val numberOfLocationCenters =2
+  val numberOfLocationCenters =5
   val numberOfTWCenters =2
-  val numberOfRotuingRun =  9000
+  val numberOfRotuingRun =  100000
   val numberOfResultingRotuingRun = 1
   val numberOfIterations = 5000
   val TXT_MODEL_FILE_PREFIX: String = "model/model_"

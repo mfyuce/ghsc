@@ -76,6 +76,6 @@ object GHSCLocationBasedTrainer  {
     locationTake(line)
   }
   def currentTwTake(line: Array[Double]): Array[Double] = {
-    locationTake(line)
+    twDistTake(line)
   }
 }

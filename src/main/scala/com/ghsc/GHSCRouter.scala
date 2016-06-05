@@ -106,16 +106,16 @@ object GHSCRouter {
 
     printSol(lastSol, sF)
 
-    sF = new File(basedir.getAbsolutePath + "/" + file.getName + "_" + totalCost + "km_" + totalJob + "uj" + options.scheduleName +(new Date()).getTime + "_ropt.sc");
-    val solution = route(file, lastSol,options.numberOfResultingRotuingRun)
-
-    totalCost = solution.getCost
-    totalJob = solution.getUnassignedJobs.size()
-
-    //printSol(solution)
-    printSol(lastSol, sF)
-    println("Total Cost opt: " + totalCost)
-    println("Total Unassgned Jobs opt: " + totalJob)
+//    sF = new File(basedir.getAbsolutePath + "/" + file.getName + "_" + totalCost + "km_" + totalJob + "uj" + options.scheduleName +(new Date()).getTime + "_ropt.sc");
+//    val solution = route(file, lastSol,options.numberOfResultingRotuingRun)
+//
+//    totalCost = solution.getCost
+//    totalJob = solution.getUnassignedJobs.size()
+//
+//    //printSol(solution)
+//    printSol(lastSol, sF)
+//    println("Total Cost opt: " + totalCost)
+//    println("Total Unassgned Jobs opt: " + totalJob)
   }
 
   def exportBests() ={
