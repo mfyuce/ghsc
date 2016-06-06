@@ -7,6 +7,7 @@ import org.apache.spark.mllib.clustering.KMeans
 import org.apache.spark.mllib.linalg.Vectors
 
 import com.ghsc.RouterUtil._
+import com.ghsc.GHSCManager._;
 import math.{ sqrt, pow }
 
 /**
@@ -73,9 +74,9 @@ object GHSCLocationBasedTrainer  {
     line.drop(1).take(2).union(line.drop(4).take(2))
   }
   def currentTake(line: Array[Double]): Array[Double] = {
-    locationTake(line)
+    twDistTake(line)
   }
   def currentTwTake(line: Array[Double]): Array[Double] = {
-    twDistTake(line)
+    locationTake(line)
   }
 }

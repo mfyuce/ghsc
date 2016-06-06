@@ -8,6 +8,7 @@ import jsprit.core.problem.solution.route.activity.TourActivity
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.mllib.clustering.KMeansModel
 import org.apache.spark.{SparkConf, SparkContext}
+import com.ghsc.GHSCManager._
 
 /**
   * Created by myuce on 25.5.2016.
@@ -67,9 +68,6 @@ object RouterUtil {
     //        .set("spark.externalBlockStore.baseDir", "D:/try")
     //          .set("spark.eventLog.dir", "D:/try")
     new SparkContext(conf)
-  }
-  def getModel(sc:SparkContext): KMeansModel ={
-    KMeansModel.load(sc, options.TXT_MODEL_FILE)
   }
   def getLatestModel(sc:SparkContext, baseFile: File,  clusterFile: File, typeText:String="location"): KMeansModel ={
     KMeansModel.load(sc, getLatestModelFolder( baseFile,  clusterFile, typeText)  )

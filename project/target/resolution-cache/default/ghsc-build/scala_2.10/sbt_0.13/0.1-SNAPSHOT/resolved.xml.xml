@@ -4,7 +4,7 @@
 		module="ghsc-build"
 		revision="0.1-SNAPSHOT"
 		status="integration"
-		publication="20160530104327"
+		publication="20160605184806"
 		e:scalaVersion="2.10" e:sbtVersion="0.13"
 	>
 		<description>

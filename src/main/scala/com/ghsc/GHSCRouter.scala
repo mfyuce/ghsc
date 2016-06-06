@@ -20,13 +20,14 @@ import jsprit.util.Examples
 import scala.collection.parallel.immutable.ParHashMap
 import com.ghsc.RouterUtil._
 import com.ghsc.GHSCExporter._
-import org.apache.spark.mllib.linalg.Vectors;
+import com.ghsc.GHSCManager._
+import org.apache.spark.mllib.linalg.Vectors
 import scala.io
 /**
   * Created by myuce on 27.5.2016.
   */
 object GHSCRouter {
-  def route(file: File, initialSol: VehicleRoutingProblemSolution,numberOFRuns:Int=options.numberOfRotuingRun): VehicleRoutingProblemSolution = {
+  def route(file: File, initialSol: VehicleRoutingProblemSolution,numberOFRuns:Int=options.numberOfRoutingRun): VehicleRoutingProblemSolution = {
     val vrpBuilder: VehicleRoutingProblem.Builder = VehicleRoutingProblem.Builder.newInstance
     new SolomonReader(vrpBuilder).read(file.getAbsolutePath)
     val vrp: VehicleRoutingProblem = vrpBuilder.build
@@ -42,6 +43,14 @@ object GHSCRouter {
   }
 
   def main(args: Array[String]) {
+    System.setProperty("hadoop.home.dir", "C:\\projects\\github\\hadoop-common-2.2.0-bin-master\\hadoop-common-2.2.0-bin-master\\")
+    //    setOptions("C1")
+    //    runOne()
+    //
+    //    setOptions("C2")
+    //    runOne()
+
+    setOptions("R1")
     run("tw")
   }
   def run(typeText: String) {
@@ -99,23 +108,23 @@ object GHSCRouter {
     println("Initial Total Unassgned Jobs : " + totalJob)
 
     val lastSol = new VehicleRoutingProblemSolution(routes, uJobs, totalCost)
-    var basedir = new File(options.TXT_INSTANCE_FOLDER + "schedules/" + file.getName + "/");
+    var basedir = new File(options.TXT_INSTANCE_FOLDER + "../schedules/" + file.getName + "/");
     basedir.mkdirs()
     var sF = new File(basedir.getAbsolutePath + "/" + file.getName + "_" + totalCost + "km_" + totalJob + "uj_" + options.scheduleName +(new Date()).getTime +  ".sc");
 
 
     printSol(lastSol, sF)
 
-//    sF = new File(basedir.getAbsolutePath + "/" + file.getName + "_" + totalCost + "km_" + totalJob + "uj" + options.scheduleName +(new Date()).getTime + "_ropt.sc");
-//    val solution = route(file, lastSol,options.numberOfResultingRotuingRun)
-//
-//    totalCost = solution.getCost
-//    totalJob = solution.getUnassignedJobs.size()
-//
-//    //printSol(solution)
-//    printSol(lastSol, sF)
-//    println("Total Cost opt: " + totalCost)
-//    println("Total Unassgned Jobs opt: " + totalJob)
+    sF = new File(basedir.getAbsolutePath + "/" + file.getName + "_" + totalCost + "km_" + totalJob + "uj" + options.scheduleName +(new Date()).getTime + "_ropt.sc");
+    val solution = route(file, lastSol,options.numberOfResultingRoutingRun)
+
+    totalCost = solution.getCost
+    totalJob = solution.getUnassignedJobs.size()
+
+    //printSol(solution)
+    printSol(lastSol, sF)
+    println("Total Cost opt: " + totalCost)
+    println("Total Unassgned Jobs opt: " + totalJob)
   }
 
   def exportBests() ={
@@ -138,5 +147,14 @@ object GHSCRouter {
         print(t._2 + "\t")
         println()
     }
+    var sumKM = 0.0
+    var sumV = 0.0
+    bestS.foreach{
+      t=>
+        sumKM+=t._2
+        sumV+=t._3
+    }
+    println("Total KM: " + sumKM)
+    println("Total Vehicles: " + sumV)
   }
 }

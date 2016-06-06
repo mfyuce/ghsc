@@ -5,7 +5,7 @@ import java.nio.charset.Charset
 import java.nio.file.Files
 import java.util.Date
 import com.ghsc.RouterUtil._;
-import com.ghsc.options._;
+import com.ghsc.GHSCManager._;
 
 import org.apache.spark.mllib.linalg.Vectors
 
