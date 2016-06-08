@@ -407,6 +407,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/scala/com/ghsc/SolomonOptions.scala">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/scala/com/ghsc/options.scala">
           <value>
             <set />

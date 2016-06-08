@@ -43,7 +43,7 @@ object GHSCRouter {
   }
 
   def main(args: Array[String]) {
-    System.setProperty("hadoop.home.dir", "C:\\projects\\github\\hadoop-common-2.2.0-bin-master\\hadoop-common-2.2.0-bin-master\\")
+    setHadoopHomeDir()
     //    setOptions("C1")
     //    runOne()
     //

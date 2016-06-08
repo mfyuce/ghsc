@@ -149,4 +149,10 @@ object RouterUtil {
     }
     new File(latest._1.getAbsolutePath + "/" + typeText)
   }
+
+  def setHadoopHomeDir() ={
+    //System.setProperty("hadoop.home.dir", "C:\\projects\\github\\hadoop-common-2.2.0-bin-master\\hadoop-common-2.2.0-bin-master\\")
+
+  }
+
 }
